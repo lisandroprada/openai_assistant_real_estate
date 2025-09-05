@@ -120,35 +120,72 @@ export class FunctionsService {
 
     // Add other filters to advanced search criteria
     if (filters.type) {
-      advancedSearchCriteria.push({ field: 'type', term: filters.type, operation: 'eq' });
+      advancedSearchCriteria.push({
+        field: 'type',
+        term: filters.type,
+        operation: 'eq',
+      });
     }
     if (filters.status) {
-      advancedSearchCriteria.push({ field: 'status', term: filters.status, operation: 'eq' });
+      advancedSearchCriteria.push({
+        field: 'status',
+        term: filters.status,
+        operation: 'eq',
+      });
     }
-    if (filters.province) {
-      advancedSearchCriteria.push({ field: 'province', term: filters.province, operation: 'eq' });
-    }
+    // Eliminar cualquier criterio de province si viene en los criterios avanzados
+    advancedSearchCriteria = advancedSearchCriteria.filter(
+      (criteria) => criteria.field !== 'province',
+    );
     if (filters.address) {
-      advancedSearchCriteria.push({ field: 'address', term: filters.address, operation: 'contains' });
+      advancedSearchCriteria.push({
+        field: 'address',
+        term: filters.address,
+        operation: 'contains',
+      });
     }
     if (filters.rooms !== undefined) {
-      advancedSearchCriteria.push({ field: 'detailedDescription.rooms', term: String(filters.rooms), operation: 'eq' });
+      advancedSearchCriteria.push({
+        field: 'detailedDescription.rooms',
+        term: String(filters.rooms),
+        operation: 'eq',
+      });
     }
     if (filters.bedrooms !== undefined) {
-      advancedSearchCriteria.push({ field: 'detailedDescription.bedrooms', term: String(filters.bedrooms), operation: 'eq' });
+      advancedSearchCriteria.push({
+        field: 'detailedDescription.bedrooms',
+        term: String(filters.bedrooms),
+        operation: 'eq',
+      });
     }
     if (filters.bathrooms !== undefined) {
-      advancedSearchCriteria.push({ field: 'detailedDescription.bathrooms', term: String(filters.bathrooms), operation: 'eq' });
+      advancedSearchCriteria.push({
+        field: 'detailedDescription.bathrooms',
+        term: String(filters.bathrooms),
+        operation: 'eq',
+      });
     }
     if (filters.minPrice !== undefined) {
-      advancedSearchCriteria.push({ field: 'valueForSale.amount', term: String(filters.minPrice), operation: 'gte' });
+      advancedSearchCriteria.push({
+        field: 'valueForSale.amount',
+        term: String(filters.minPrice),
+        operation: 'gte',
+      });
     }
     if (filters.maxPrice !== undefined) {
-      advancedSearchCriteria.push({ field: 'valueForSale.amount', term: String(filters.maxPrice), operation: 'lte' });
+      advancedSearchCriteria.push({
+        field: 'valueForSale.amount',
+        term: String(filters.maxPrice),
+        operation: 'lte',
+      });
     }
     if (filters.specs && filters.specs.length > 0) {
-      filters.specs.forEach(spec => {
-        advancedSearchCriteria.push({ field: 'specs', term: spec, operation: 'contains' });
+      filters.specs.forEach((spec) => {
+        advancedSearchCriteria.push({
+          field: 'specs',
+          term: spec,
+          operation: 'contains',
+        });
       });
     }
 
